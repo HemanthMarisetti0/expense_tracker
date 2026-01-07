@@ -1,18 +1,24 @@
 {
   "name": "expense_tracker",
   "private": true,
+  "workspaces": ["apps/*", "libs/*"],
+
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "dev:web": "pnpm --filter expense_tracker_web dev",
+    "dev:backend": "pnpm --filter backend dev",
+
+    "build:web": "pnpm --filter expense_tracker_web build",
+    "build:backend": "pnpm --filter backend build",
+
+    "lint": "pnpm -r lint",
+    "format": "prettier --write ."
   },
+
   "devDependencies": {
     "prettier": "^3.7.4",
-    "turbo": "^2.7.3",
     "typescript": "5.9.2"
   },
+
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
