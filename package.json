@@ -1,24 +1,23 @@
 {
   "name": "expense_tracker",
   "private": true,
-  "workspaces": ["apps/*", "libs/*"],
-
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
   "scripts": {
     "dev:web": "pnpm --filter expense_tracker_web dev",
     "dev:backend": "pnpm --filter backend dev",
-
     "build:web": "pnpm --filter expense_tracker_web build",
     "build:backend": "pnpm --filter backend build",
-
     "lint": "pnpm -r lint",
     "format": "prettier --write ."
   },
-
   "devDependencies": {
+    "@nestjs/cli": "^10.4.9",
     "prettier": "^3.7.4",
     "typescript": "5.9.2"
   },
-
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
