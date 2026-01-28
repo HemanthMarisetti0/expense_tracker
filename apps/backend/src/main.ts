@@ -19,8 +19,10 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.useGlobalGuards(app.get(AuthGuard));
 
-  await app.listen(8000);
-  console.log('Server running on http://localhost:8000');
-  console.log('Swagger docs: http://localhost:8000/api');
+  const port = process.env.PORT || 8000;
+  await app.listen(port);
+  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Swagger docs: http://localhost:${port}/api`);
 }
+
 bootstrap();
