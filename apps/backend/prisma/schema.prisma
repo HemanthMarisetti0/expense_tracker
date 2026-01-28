@@ -6,13 +6,59 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+
 }
 
 model User {
-  id        String  @id @default(cuid())
-  uid       String  @unique
+  id        String   @id @default(cuid())
+  uid       String   @unique
   email     String
   name      String?
   createdAt DateTime @default(now())
+
+  expenses       Expense[]
+  categories     Category[]
+  paymentMethods PaymentMethod[]
 }
 
+model Expense {
+  id              String   @id @default(cuid())
+  amount          Decimal  @db.Decimal(10, 2)
+  description     String?
+  date            DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId          String
+  user            User @relation(fields: [userId], references: [id])
+
+  categoryId      String?
+  category        Category? @relation(fields: [categoryId], references: [id])
+
+  paymentMethodId String?
+  paymentMethod   PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+}
+
+model Category {
+  id     String @id @default(cuid())
+  name   String
+  color  String?
+  icon   String?
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  expenses Expense[]
+
+  @@unique([name, userId])
+}
+
+model PaymentMethod {
+  id   String @id @default(cuid())
+  name String
+
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  expenses Expense[]
+}
